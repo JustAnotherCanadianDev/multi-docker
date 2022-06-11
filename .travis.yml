@@ -22,3 +22,17 @@ after_success:
   - docker push brian/multi-nginx
   - docker push brian/multi-server
   - docker push brian/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "multi-docker"
+  env: "Multidocker-env"
+  # The S3 bucket name
+  bucket_name: "elasticbeanstalk-us-east-1-162035663238"
+  # Not sure where this is from. May just leave it
+  bucket_path: "docker-multi"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
